@@ -1,0 +1,4 @@
+[submodule "deps/srcmap"]
+	path = deps/srcmap
+	url = https://github.com/mgreter/sourcemap.cpp
+	branch = master

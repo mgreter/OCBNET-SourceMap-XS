@@ -1,0 +1,15 @@
+TYPEMAP
+SourceMap::SrcMapDoc *       T_OEXT(refcnt)
+SourceMap::SrcMapDocSP       T_OEXT
+
+SourceMap::Mappings *        T_OEXT(refcnt)
+SourceMap::MappingsSP        T_OEXT
+
+SourceMap::LineMap *         T_OEXT(refcnt)
+SourceMap::LineMapSP         T_OEXT
+
+SourceMap::ColMap *          T_OEXT(refcnt)
+SourceMap::ColMapSP          T_OEXT
+
+SourceMap::SrcMapPos *       T_OEXT
+SourceMap::SrcMapIdx *       T_OEXT
