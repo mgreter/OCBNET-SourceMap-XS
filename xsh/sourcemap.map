@@ -1,15 +1,46 @@
 TYPEMAP
-SourceMap::SrcMapDoc *       T_OEXT(refcnt)
-SourceMap::SrcMapDocSP       T_OEXT
+std::string                  T_STD_STRING
+std::string*                 T_STD_STRING_PTR
 
-SourceMap::Mappings *        T_OEXT(refcnt)
-SourceMap::MappingsSP        T_OEXT
+SourceMap::SrcMapDoc*        T_PTROBJ
+SourceMap::SrcMapDocSP       T_SHARED_PTR
 
-SourceMap::LineMap *         T_OEXT(refcnt)
-SourceMap::LineMapSP         T_OEXT
+SourceMap::Mappings*         T_PTROBJ
+SourceMap::MappingsSP        T_SHARED_PTR
 
-SourceMap::ColMap *          T_OEXT(refcnt)
-SourceMap::ColMapSP          T_OEXT
+SourceMap::LineMap*          T_PTROBJ
+SourceMap::LineMapSP         T_SHARED_PTR
 
-SourceMap::SrcMapPos *       T_OEXT
-SourceMap::SrcMapIdx *       T_OEXT
+SourceMap::ColMap*           T_PTROBJ
+SourceMap::ColMapSP          T_SHARED_PTR
+
+SourceMap::SrcMapPos*        T_PTROBJ
+SourceMap::SrcMapIdx*        T_PTROBJ
+
+OUTPUT
+
+T_SHARED_PTR
+    sv_setref_pv( $arg, CLASS, (void*)(new SourceMap::shared_ptr<void>($var)) );
+
+T_STD_STRING
+    $arg = newSVpvn( $var.c_str(), $var.length() );
+
+T_STD_STRING_PTR
+    $arg = newSVpvn( $var->c_str(), $var->length() );
+
+INPUT
+
+T_SHARED_PTR
+    if ( sv_isobject($arg) && (SvTYPE(SvRV($arg)) == SVt_PVMG) ) {
+        $var = *($type*)SvIV((SV*)SvRV( $arg ));
+    }
+    else {
+        warn( \"${Package}::$func_name() -- $var not a blessed SV reference\" );
+        XSRETURN_UNDEF;
+    }
+
+T_STD_STRING
+    $var = std::string( SvPV_nolen( $arg ), SvCUR( $arg ) );
+
+T_STD_STRING_PTR
+    $var = new std::string( SvPV_nolen( $arg ), SvCUR( $arg ) );

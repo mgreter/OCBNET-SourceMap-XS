@@ -7,11 +7,11 @@
 /Build
 /_build
 /cover_db/
-/MYMETA.*
 /ExtUtils-MakeMaker-*
 /MANIFEST
 /dll.*
 /typemap
+/OCBNET-SourceMap-XS-*
 
 *.o
 *.def

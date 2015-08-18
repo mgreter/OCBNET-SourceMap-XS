@@ -23,11 +23,28 @@ extern "C" {
 }
 #endif
 
-#include <xs/xs.h>
+#include "ppport.h"
+
 #include <exception>
 #include <stdexcept>
 #include "sourcemap.hpp"
 #include "document.hpp"
+#include "mappings.hpp"
+
+// add typedefs, not sure why perl doesn't add this?
+typedef std::string              std__string;
+typedef SourceMap::SrcMapDoc     SourceMap__SrcMapDoc;
+typedef SourceMap::Mappings      SourceMap__Mappings;
+typedef SourceMap::ColMap        SourceMap__ColMap;
+typedef SourceMap::LineMap       SourceMap__LineMap;
+typedef SourceMap::SrcMapPos     SourceMap__SrcMapPos;
+typedef SourceMap::SrcMapIdx     SourceMap__SrcMapIdx;
+
+typedef SourceMap::ColMapSP      SourceMap__ColMapSP;
+typedef SourceMap::LineMapSP     SourceMap__LineMapSP;
+typedef SourceMap::MappingsSP    SourceMap__MappingsSP;
+typedef SourceMap::SrcMapDocSP   SourceMap__SrcMapDocSP;
+
 
 SV* cpp_error = 0;
 
@@ -37,9 +54,11 @@ static inline void handle_error()
     throw;
   }
   catch (std::exception& e) {
+    if (cpp_error) sv_2mortal(cpp_error);
     cpp_error = newSVpvf("Caught C++ exception of type or derived from 'std::exception': %s", e.what());
   }
   catch (...) {
+    if (cpp_error) sv_2mortal(cpp_error);
     cpp_error = newSVpvf("Caught C++ exception of unknown type");
   }
 }
@@ -47,7 +66,7 @@ static inline void handle_error()
 static inline void check_error()
 {
   if (cpp_error) {
-    croak_sv(cpp_error);
+    croak(SvPV_nolen(sv_2mortal(cpp_error)));
   }
 }
 

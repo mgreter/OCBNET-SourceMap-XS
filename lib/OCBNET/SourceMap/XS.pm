@@ -27,8 +27,8 @@ our @EXPORT = qw(
 
 our $VERSION = '0.01';
 
-require Panda::XSLoader;
-Panda::XSLoader::load();
+require XSLoader;
+XSLoader::load();
 
 package OCBNET::SourceMap::XS::LineMap;
 
