@@ -1,0 +1,30 @@
+---
+abstract: 'Perl extension for source-map manipulation'
+author:
+  - 'Marcel Greter <perl-libsass@ocbnet.ch>'
+build_requires:
+  ExtUtils::CppGuess: '0.09'
+  ExtUtils::MakeMaker: '6.52'
+  Getopt::Long: '0.01'
+configure_requires:
+  ExtUtils::CppGuess: '0.09'
+  ExtUtils::MakeMaker: '6.52'
+  Getopt::Long: '0.01'
+dynamic_config: 0
+generated_by: 'ExtUtils::MakeMaker version 7.0401, CPAN::Meta::Converter version 2.150001'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: '1.4'
+name: OCBNET-SourceMap-XS
+no_index:
+  directory:
+    - t
+    - inc
+requires:
+  Carp: '1.01'
+  perl: '5.008'
+  strict: '0'
+  version: '0'
+  warnings: '0'
+version: '0.01'
